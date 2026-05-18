@@ -1,4 +1,5 @@
 const db = require('../db');
+const { PROMPT_VERSION } = require('../prompts/version');
 
 const COLLECTED_FIELD_MAP = {
   age: 'collected_age',
@@ -98,13 +99,21 @@ async function upsertConversation(parsed, { is_sandbox = false } = {}) {
 }
 
 async function appendMessageHistory(conversationId, role, content) {
+  // Auto-stamp the prompt version on assistant turns so analytics can trace
+  // which version of the bot generated each response. User turns are not
+  // stamped (they are not bot output). The stamp is non-invasive: it lives
+  // alongside role/content/timestamp in the JSONB blob.
+  const turn = { role, content, timestamp: new Date().toISOString() };
+  if (role === 'assistant') {
+    turn.prompt_version = PROMPT_VERSION;
+  }
   await db.query(
     `UPDATE conversations
      SET messages = messages || $1::jsonb,
          last_message_at = NOW(),
          updated_at = NOW()
      WHERE id = $2`,
-    [JSON.stringify([{ role, content, timestamp: new Date().toISOString() }]), conversationId]
+    [JSON.stringify([turn]), conversationId]
   );
 }
 
