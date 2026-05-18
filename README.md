@@ -46,5 +46,7 @@ Dashboard: open `http://localhost:3000/`.
 
 Multi-tenant by design: `ghl_token` and `ghl_location_id` arrive per webhook; nothing is hardcoded per sub-account.
 
+For day-to-day operations, see **`OPERATIONS.md`**. For onboarding a new client, see **`ONBOARDING.md`**.
+
 <!-- Local dev setup verified on Jeremiah's workstation, May 18, 2026 -->
 
