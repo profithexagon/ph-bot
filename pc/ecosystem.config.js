@@ -11,6 +11,7 @@ module.exports = {
       env: {
         PORT: 8080,
         HOST: '0.0.0.0',
+        CLAUDE_BIN: 'C:\\Users\\johns\\AppData\\Roaming\\npm\\claude.cmd',
         WORKDIR: process.env.USERPROFILE || process.env.HOME,
         REQUEST_TIMEOUT_MS: 600000,
       },
