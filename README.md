@@ -45,3 +45,6 @@ Dashboard: open `http://localhost:3000/`.
 - **`public/index.html`** — React dashboard (served statically).
 
 Multi-tenant by design: `ghl_token` and `ghl_location_id` arrive per webhook; nothing is hardcoded per sub-account.
+
+<!-- Local dev setup verified on Jeremiah's workstation, May 18, 2026 -->
+
